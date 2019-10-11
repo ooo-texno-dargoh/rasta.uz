@@ -2,28 +2,28 @@
 
 namespace app\models\search;
 
-use Yii;
 use yii\base\Model;
 use yii\data\ActiveDataProvider;
-use app\models\PaymentTypes;
+use app\models\PaymentTypeNames;
 
 /**
- * PaymentTypeNamesSearch represents the model behind the search form about `app\models\PaymentTypes`.
+ * PaymentTypeNamesSearch represents the model behind the search form of `app\models\PaymentTypeNames`.
  */
-class PaymentTypeNamesSearch extends PaymentTypes
+class PaymentTypeNamesSearch extends PaymentTypeNames
 {
     /**
-     * @inheritdoc
+     * {@inheritdoc}
      */
     public function rules()
     {
         return [
-            [['id', 'status'], 'integer'],
+            [['id', 'payment_type_id', 'lang_id', 'status'], 'integer'],
+            [['name'], 'safe'],
         ];
     }
 
     /**
-     * @inheritdoc
+     * {@inheritdoc}
      */
     public function scenarios()
     {
@@ -40,7 +40,9 @@ class PaymentTypeNamesSearch extends PaymentTypes
      */
     public function search($params)
     {
-        $query = PaymentTypes::find();
+        $query = PaymentTypeNames::find();
+
+        // add conditions that should always apply here
 
         $dataProvider = new ActiveDataProvider([
             'query' => $query,
@@ -54,10 +56,15 @@ class PaymentTypeNamesSearch extends PaymentTypes
             return $dataProvider;
         }
 
+        // grid filtering conditions
         $query->andFilterWhere([
             'id' => $this->id,
+            'payment_type_id' => $this->payment_type_id,
+            'lang_id' => $this->lang_id,
             'status' => $this->status,
         ]);
+
+        $query->andFilterWhere(['like', 'name', $this->name]);
 
         return $dataProvider;
     }

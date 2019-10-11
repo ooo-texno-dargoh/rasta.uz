@@ -2,18 +2,17 @@
 
 namespace app\models\search;
 
-use Yii;
 use yii\base\Model;
 use yii\data\ActiveDataProvider;
 use app\models\Roles;
 
 /**
- * RolesSearch represents the model behind the search form about `app\models\Roles`.
+ * RolesSearch represents the model behind the search form of `app\models\Roles`.
  */
 class RolesSearch extends Roles
 {
     /**
-     * @inheritdoc
+     * {@inheritdoc}
      */
     public function rules()
     {
@@ -23,7 +22,7 @@ class RolesSearch extends Roles
     }
 
     /**
-     * @inheritdoc
+     * {@inheritdoc}
      */
     public function scenarios()
     {
@@ -42,6 +41,8 @@ class RolesSearch extends Roles
     {
         $query = Roles::find();
 
+        // add conditions that should always apply here
+
         $dataProvider = new ActiveDataProvider([
             'query' => $query,
         ]);
@@ -54,6 +55,7 @@ class RolesSearch extends Roles
             return $dataProvider;
         }
 
+        // grid filtering conditions
         $query->andFilterWhere([
             'id' => $this->id,
             'role' => $this->role,

@@ -2,18 +2,17 @@
 
 namespace app\models\search;
 
-use Yii;
 use yii\base\Model;
 use yii\data\ActiveDataProvider;
 use app\models\Clients;
 
 /**
- * ClientsSearch represents the model behind the search form about `app\models\Clients`.
+ * ClientsSearch represents the model behind the search form of `app\models\Clients`.
  */
 class ClientsSearch extends Clients
 {
     /**
-     * @inheritdoc
+     * {@inheritdoc}
      */
     public function rules()
     {
@@ -24,7 +23,7 @@ class ClientsSearch extends Clients
     }
 
     /**
-     * @inheritdoc
+     * {@inheritdoc}
      */
     public function scenarios()
     {
@@ -43,6 +42,8 @@ class ClientsSearch extends Clients
     {
         $query = Clients::find();
 
+        // add conditions that should always apply here
+
         $dataProvider = new ActiveDataProvider([
             'query' => $query,
         ]);
@@ -55,6 +56,7 @@ class ClientsSearch extends Clients
             return $dataProvider;
         }
 
+        // grid filtering conditions
         $query->andFilterWhere([
             'id' => $this->id,
             'mfo' => $this->mfo,

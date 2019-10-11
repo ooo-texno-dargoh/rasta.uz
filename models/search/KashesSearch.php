@@ -2,18 +2,17 @@
 
 namespace app\models\search;
 
-use Yii;
 use yii\base\Model;
 use yii\data\ActiveDataProvider;
 use app\models\Kashes;
 
 /**
- * KashesSearch represents the model behind the search form about `app\models\Kashes`.
+ * KashesSearch represents the model behind the search form of `app\models\Kashes`.
  */
 class KashesSearch extends Kashes
 {
     /**
-     * @inheritdoc
+     * {@inheritdoc}
      */
     public function rules()
     {
@@ -24,7 +23,7 @@ class KashesSearch extends Kashes
     }
 
     /**
-     * @inheritdoc
+     * {@inheritdoc}
      */
     public function scenarios()
     {
@@ -43,6 +42,8 @@ class KashesSearch extends Kashes
     {
         $query = Kashes::find();
 
+        // add conditions that should always apply here
+
         $dataProvider = new ActiveDataProvider([
             'query' => $query,
         ]);
@@ -55,6 +56,7 @@ class KashesSearch extends Kashes
             return $dataProvider;
         }
 
+        // grid filtering conditions
         $query->andFilterWhere([
             'id' => $this->id,
             'status' => $this->status,

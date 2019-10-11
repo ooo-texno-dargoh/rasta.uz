@@ -2,18 +2,17 @@
 
 namespace app\models\search;
 
-use Yii;
 use yii\base\Model;
 use yii\data\ActiveDataProvider;
 use app\models\OrderTypes;
 
 /**
- * OrderTypesSearch represents the model behind the search form about `app\models\OrderTypes`.
+ * OrderTypesSearch represents the model behind the search form of `app\models\OrderTypes`.
  */
 class OrderTypesSearch extends OrderTypes
 {
     /**
-     * @inheritdoc
+     * {@inheritdoc}
      */
     public function rules()
     {
@@ -24,7 +23,7 @@ class OrderTypesSearch extends OrderTypes
     }
 
     /**
-     * @inheritdoc
+     * {@inheritdoc}
      */
     public function scenarios()
     {
@@ -43,6 +42,8 @@ class OrderTypesSearch extends OrderTypes
     {
         $query = OrderTypes::find();
 
+        // add conditions that should always apply here
+
         $dataProvider = new ActiveDataProvider([
             'query' => $query,
         ]);
@@ -55,6 +56,7 @@ class OrderTypesSearch extends OrderTypes
             return $dataProvider;
         }
 
+        // grid filtering conditions
         $query->andFilterWhere([
             'id' => $this->id,
             'status' => $this->status,

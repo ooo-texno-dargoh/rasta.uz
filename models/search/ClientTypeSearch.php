@@ -2,18 +2,17 @@
 
 namespace app\models\search;
 
-use Yii;
 use yii\base\Model;
 use yii\data\ActiveDataProvider;
 use app\models\ClientType;
 
 /**
- * ClientTypeSearch represents the model behind the search form about `app\models\ClientType`.
+ * ClientTypeSearch represents the model behind the search form of `app\models\ClientType`.
  */
 class ClientTypeSearch extends ClientType
 {
     /**
-     * @inheritdoc
+     * {@inheritdoc}
      */
     public function rules()
     {
@@ -23,7 +22,7 @@ class ClientTypeSearch extends ClientType
     }
 
     /**
-     * @inheritdoc
+     * {@inheritdoc}
      */
     public function scenarios()
     {
@@ -42,6 +41,8 @@ class ClientTypeSearch extends ClientType
     {
         $query = ClientType::find();
 
+        // add conditions that should always apply here
+
         $dataProvider = new ActiveDataProvider([
             'query' => $query,
         ]);
@@ -54,6 +55,7 @@ class ClientTypeSearch extends ClientType
             return $dataProvider;
         }
 
+        // grid filtering conditions
         $query->andFilterWhere([
             'id' => $this->id,
             'status' => $this->status,

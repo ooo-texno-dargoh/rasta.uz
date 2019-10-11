@@ -2,18 +2,17 @@
 
 namespace app\models\search;
 
-use Yii;
 use yii\base\Model;
 use yii\data\ActiveDataProvider;
 use app\models\PriceType;
 
 /**
- * PriceTypeSearch represents the model behind the search form about `app\models\PriceType`.
+ * PriceTypeSearch represents the model behind the search form of `app\models\PriceType`.
  */
 class PriceTypeSearch extends PriceType
 {
     /**
-     * @inheritdoc
+     * {@inheritdoc}
      */
     public function rules()
     {
@@ -24,7 +23,7 @@ class PriceTypeSearch extends PriceType
     }
 
     /**
-     * @inheritdoc
+     * {@inheritdoc}
      */
     public function scenarios()
     {
@@ -43,6 +42,8 @@ class PriceTypeSearch extends PriceType
     {
         $query = PriceType::find();
 
+        // add conditions that should always apply here
+
         $dataProvider = new ActiveDataProvider([
             'query' => $query,
         ]);
@@ -55,6 +56,7 @@ class PriceTypeSearch extends PriceType
             return $dataProvider;
         }
 
+        // grid filtering conditions
         $query->andFilterWhere([
             'id' => $this->id,
             'percent' => $this->percent,

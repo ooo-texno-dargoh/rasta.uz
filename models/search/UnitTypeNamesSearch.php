@@ -2,18 +2,17 @@
 
 namespace app\models\search;
 
-use Yii;
 use yii\base\Model;
 use yii\data\ActiveDataProvider;
 use app\models\UnitTypeNames;
 
 /**
- * UnitTypeNamesSearch represents the model behind the search form about `app\models\UnitTypeNames`.
+ * UnitTypeNamesSearch represents the model behind the search form of `app\models\UnitTypeNames`.
  */
 class UnitTypeNamesSearch extends UnitTypeNames
 {
     /**
-     * @inheritdoc
+     * {@inheritdoc}
      */
     public function rules()
     {
@@ -24,7 +23,7 @@ class UnitTypeNamesSearch extends UnitTypeNames
     }
 
     /**
-     * @inheritdoc
+     * {@inheritdoc}
      */
     public function scenarios()
     {
@@ -43,6 +42,8 @@ class UnitTypeNamesSearch extends UnitTypeNames
     {
         $query = UnitTypeNames::find();
 
+        // add conditions that should always apply here
+
         $dataProvider = new ActiveDataProvider([
             'query' => $query,
         ]);
@@ -55,6 +56,7 @@ class UnitTypeNamesSearch extends UnitTypeNames
             return $dataProvider;
         }
 
+        // grid filtering conditions
         $query->andFilterWhere([
             'id' => $this->id,
             'lang_id' => $this->lang_id,

@@ -2,18 +2,17 @@
 
 namespace app\models\search;
 
-use Yii;
 use yii\base\Model;
 use yii\data\ActiveDataProvider;
 use app\models\CategoryNames;
 
 /**
- * CategoryNamesSearch represents the model behind the search form about `app\models\CategoryNames`.
+ * CategoryNamesSearch represents the model behind the search form of `app\models\CategoryNames`.
  */
 class CategoryNamesSearch extends CategoryNames
 {
     /**
-     * @inheritdoc
+     * {@inheritdoc}
      */
     public function rules()
     {
@@ -24,7 +23,7 @@ class CategoryNamesSearch extends CategoryNames
     }
 
     /**
-     * @inheritdoc
+     * {@inheritdoc}
      */
     public function scenarios()
     {
@@ -43,6 +42,8 @@ class CategoryNamesSearch extends CategoryNames
     {
         $query = CategoryNames::find();
 
+        // add conditions that should always apply here
+
         $dataProvider = new ActiveDataProvider([
             'query' => $query,
         ]);
@@ -55,6 +56,7 @@ class CategoryNamesSearch extends CategoryNames
             return $dataProvider;
         }
 
+        // grid filtering conditions
         $query->andFilterWhere([
             'id' => $this->id,
             'category_id' => $this->category_id,

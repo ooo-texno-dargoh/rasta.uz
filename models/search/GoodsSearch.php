@@ -2,18 +2,17 @@
 
 namespace app\models\search;
 
-use Yii;
 use yii\base\Model;
 use yii\data\ActiveDataProvider;
 use app\models\Goods;
 
 /**
- * GoodsSearch represents the model behind the search form about `app\models\Goods`.
+ * GoodsSearch represents the model behind the search form of `app\models\Goods`.
  */
 class GoodsSearch extends Goods
 {
     /**
-     * @inheritdoc
+     * {@inheritdoc}
      */
     public function rules()
     {
@@ -25,7 +24,7 @@ class GoodsSearch extends Goods
     }
 
     /**
-     * @inheritdoc
+     * {@inheritdoc}
      */
     public function scenarios()
     {
@@ -44,6 +43,8 @@ class GoodsSearch extends Goods
     {
         $query = Goods::find();
 
+        // add conditions that should always apply here
+
         $dataProvider = new ActiveDataProvider([
             'query' => $query,
         ]);
@@ -56,6 +57,7 @@ class GoodsSearch extends Goods
             return $dataProvider;
         }
 
+        // grid filtering conditions
         $query->andFilterWhere([
             'id' => $this->id,
             'weight' => $this->weight,

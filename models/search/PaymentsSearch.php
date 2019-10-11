@@ -2,18 +2,17 @@
 
 namespace app\models\search;
 
-use Yii;
 use yii\base\Model;
 use yii\data\ActiveDataProvider;
 use app\models\Payments;
 
 /**
- * PaymentsSearch represents the model behind the search form about `app\models\Payments`.
+ * PaymentsSearch represents the model behind the search form of `app\models\Payments`.
  */
 class PaymentsSearch extends Payments
 {
     /**
-     * @inheritdoc
+     * {@inheritdoc}
      */
     public function rules()
     {
@@ -25,7 +24,7 @@ class PaymentsSearch extends Payments
     }
 
     /**
-     * @inheritdoc
+     * {@inheritdoc}
      */
     public function scenarios()
     {
@@ -44,6 +43,8 @@ class PaymentsSearch extends Payments
     {
         $query = Payments::find();
 
+        // add conditions that should always apply here
+
         $dataProvider = new ActiveDataProvider([
             'query' => $query,
         ]);
@@ -56,6 +57,7 @@ class PaymentsSearch extends Payments
             return $dataProvider;
         }
 
+        // grid filtering conditions
         $query->andFilterWhere([
             'id' => $this->id,
             'order_id' => $this->order_id,

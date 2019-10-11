@@ -2,18 +2,17 @@
 
 namespace app\models\search;
 
-use Yii;
 use yii\base\Model;
 use yii\data\ActiveDataProvider;
 use app\models\CitytownNames;
 
 /**
- * CitytownNamesSearch represents the model behind the search form about `app\models\CitytownNames`.
+ * CitytownNamesSearch represents the model behind the search form of `app\models\CitytownNames`.
  */
 class CitytownNamesSearch extends CitytownNames
 {
     /**
-     * @inheritdoc
+     * {@inheritdoc}
      */
     public function rules()
     {
@@ -23,7 +22,7 @@ class CitytownNamesSearch extends CitytownNames
     }
 
     /**
-     * @inheritdoc
+     * {@inheritdoc}
      */
     public function scenarios()
     {
@@ -42,6 +41,8 @@ class CitytownNamesSearch extends CitytownNames
     {
         $query = CitytownNames::find();
 
+        // add conditions that should always apply here
+
         $dataProvider = new ActiveDataProvider([
             'query' => $query,
         ]);
@@ -54,6 +55,7 @@ class CitytownNamesSearch extends CitytownNames
             return $dataProvider;
         }
 
+        // grid filtering conditions
         $query->andFilterWhere([
             'id' => $this->id,
             'name' => $this->name,

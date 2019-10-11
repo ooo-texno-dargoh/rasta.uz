@@ -2,8 +2,14 @@
 
 namespace app\models;
 
-class User extends \yii\base\BaseObject implements \yii\web\IdentityInterface
+use yii\db\ActiveRecord;
+
+class User extends ActiveRecord implements \yii\web\IdentityInterface
 {
+    public static function tableName()
+    {
+        return 'user';
+    }
     public $id;
     public $username;
     public $password;
