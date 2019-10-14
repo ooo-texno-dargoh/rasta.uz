@@ -12,6 +12,7 @@ use app\assets\AppAsset;
 
 AppAsset::register($this);
 //
+// Turgun
 $categories=\app\models\Categories::find()->all();
 ?>
 <?php $this->beginPage() ?>
