@@ -11,6 +11,8 @@ use yii\widgets\Breadcrumbs;
 use app\assets\AppAsset;
 
 AppAsset::register($this);
+
+$categories=\app\models\Categories::find()->all();
 ?>
 <?php $this->beginPage() ?>
 <!DOCTYPE html>
@@ -56,7 +58,8 @@ AppAsset::register($this);
                         </span>
                     </button>
                 </span>
-        </div>    <div class="app-header__content">
+        </div>
+        <div class="app-header__content">
             <div class="app-header-left">
                 <div class="search-wrapper">
                     <div class="input-holder">
@@ -124,9 +127,9 @@ AppAsset::register($this);
         </div>
     </div>
     <div class="ui-theme-settings">
-        <button type="button" id="TooltipDemo" class="btn-open-options btn btn-warning">
-            <i class="fa fa-cog fa-w-16 fa-spin fa-2x"></i>
-        </button>
+<!--        <button type="button" id="TooltipDemo" class="btn-open-options btn btn-warning">-->
+<!--            <i class="fa fa-cog fa-w-16 fa-spin fa-2x"></i>-->
+<!--        </button>-->
         <div class="theme-settings__inner">
             <div class="scrollbar-container">
                 <div class="theme-settings__options-wrapper">
@@ -433,194 +436,372 @@ AppAsset::register($this);
                                 </span>
                             </button>
                         </span>
-            </div>    <div class="scrollbar-sidebar">
+            </div>
+            <div class="scrollbar-sidebar">
                 <div class="app-sidebar__inner">
                     <ul class="vertical-nav-menu">
-                        <li class="app-sidebar__heading">Dashboards</li>
+
+<!--                        Asosiy elementlar-->
+                        <li class="app-sidebar__heading">Asosiy elementlar</li>
+<!--                        Bosh sahifa-->
                         <li>
-                            <a href="index.html" class="mm-active">
-                                <i class="metismenu-icon pe-7s-rocket"></i>
-                                Dashboard Example 1
+                            <a href="<?=$urlqu=Yii::$app->homeUrl?>" class="<?= $urlqu==Yii::$app->request->url? 'mm-active': '' ?>">
+                                <i class="metismenu-icon pe-7s-home"></i>
+                                Bosh sahifa
                             </a>
                         </li>
-                        <li class="app-sidebar__heading">UI Components</li>
+<!--                        Sotuv amaliyoti-->
                         <li>
+                            <a href="<?=$urlqu=Yii::$app->urlManager->createUrl(['/sotuv-amaliyoti'])?>" class="<?= $urlqu==Yii::$app->request->url? 'mm-active': '' ?>">
+                                <i class="metismenu-icon pe-7s-cart"></i>
+                                Sotuv amaliyoti
+                            </a>
+                        </li>
+<!--                        Cheklar-->
+                        <li>
+                            <a href="<?=$urlqu=Yii::$app->urlManager->createUrl(['/cheklar'])?>" class="<?= $urlqu==Yii::$app->request->url? 'mm-active': '' ?>">
+                                <i class="metismenu-icon pe-7s-news-paper"></i>
+                                Cheklar
+                            </a>
+                        </li>
+<!--                        Omborxona-->
+
+                        <li class="app-sidebar__heading">Omborxona</li>
+<!--                        Kirim qilish-->
+                        <li>
+                            <a href="<?=$urlqu=Yii::$app->urlManager->createUrl(['/kirim-qilish'])?>" class="<?= $urlqu==Yii::$app->request->url? 'mm-active': '' ?>">
+                                <i class="metismenu-icon pe-7s-download"></i>
+                                Kirim qilish
+                            </a>
+                        </li>
+<!--                        Tovarlar qoldig'i-->
+                        <li>
+                            <a href="<?=$urlqu=Yii::$app->urlManager->createUrl(['/tovaralar-qoldigi'])?>" class="<?= $urlqu==Yii::$app->request->url? 'mm-active': '' ?>">
+                                <i class="metismenu-icon pe-7s-box1"></i>
+                                Tovarlar qoldig’i
+                            </a>
+                        </li>
+<!--                        Rastadagi tovarlar-->
+                        <li>
+                            <a href="<?=$urlqu=Yii::$app->urlManager->createUrl(['/rastadagi-tovarlar'])?>" class="<?= $urlqu==Yii::$app->request->url? 'mm-active': '' ?>">
+                                <i class="metismenu-icon pe-7s-plugin"></i>
+                                Rastadagi tovarlar
+                            </a>
+                        </li>
+<!--                        Kam qolgan tovarlar-->
+                        <li>
+                            <a href="<?=$urlqu=Yii::$app->urlManager->createUrl(['/kam-qolgan-tovarlar'])?>" class="<?= $urlqu==Yii::$app->request->url? 'mm-active': '' ?>">
+                                <i class="metismenu-icon pe-7s-bell"></i>
+                                Kam qolgan tovarlar
+                            </a>
+                        </li>
+<!--                        Yaroqsiz tovarlar-->
+                        <li>
+                            <a href="<?=$urlqu=Yii::$app->urlManager->createUrl(['/yaroqsiz-tovarlar'])?>" class="<?= $urlqu==Yii::$app->request->url? 'mm-active': '' ?>">
+                                <i class="metismenu-icon pe-7s-attention"></i>
+                                Yaroqsiz tovarlar
+                            </a>
+                        </li>
+
+<!--                        Moliya-->
+                        <li class="app-sidebar__heading">Moliya</li>
+<!--                        Buxgalteriya-->
+                        <li class="<?=strpos(Yii::$app->request->url,'buxgalteriya') ? 'mm-active': ''?>">
+                            <a href="#">
+                                <i class="metismenu-icon pe-7s-graph"></i>
+                                Buxgalteriya
+                                <i class="metismenu-state-icon pe-7s-angle-down caret-left"></i>
+                            </a>
+                            <ul>
+                                <li>
+                                    <a href="<?=$urlqu=Yii::$app->urlManager->createUrl(['/buxgalteriya/debit-kredit'])?>" class="<?=Yii::$app->request->url==$urlqu? 'mm-active':''?>">
+                                        <i class="metismenu-icon"></i>
+                                        Debit va Kredit
+                                    </a>
+                                </li>
+                                <li>
+                                    <a href="<?=$urlqu=Yii::$app->urlManager->createUrl(['/buxgalteriya/dalolatnomalar'])?>" class="<?=Yii::$app->request->url==$urlqu? 'mm-active':''?>">
+                                        <i class="metismenu-icon"></i>
+                                        Dalolatnomalar
+                                    </a>
+                                </li>
+                                <li>
+                                    <a href="<?=$urlqu=Yii::$app->urlManager->createUrl(['/buxgalteriya/tovar-aylanmasi'])?>" class="<?=Yii::$app->request->url==$urlqu? 'mm-active':''?>">
+                                        <i class="metismenu-icon"></i>
+                                        Tovar aylanmasi
+                                    </a>
+                                </li>
+                                <li>
+                                    <a href="<?=$urlqu=Yii::$app->urlManager->createUrl(['/buxgalteriya/tovarlar-harakati'])?>" class="<?=Yii::$app->request->url==$urlqu? 'mm-active':''?>">
+                                        <i class="metismenu-icon"></i>
+                                        Tovarlar harakati
+                                    </a>
+                                </li>
+                                <li>
+                                    <a href="<?=$urlqu=Yii::$app->urlManager->createUrl(['/buxgalteriya/nakladnoylar'])?>" class="<?=Yii::$app->request->url==$urlqu? 'mm-active':''?>">
+                                        <i class="metismenu-icon"></i>
+                                        Nakladnoylar
+                                    </a>
+                                </li>
+                            </ul>
+                        </li>
+<!--                        Kassa-->
+                        <li class="<?=strpos(Yii::$app->request->url,'kassa') ? 'mm-active': ''?>">
+                            <a href="#">
+                                <i class="metismenu-icon pe-7s-user-female"></i>
+                                Kassa
+                                <i class="metismenu-state-icon pe-7s-angle-down caret-left"></i>
+                            </a>
+                            <ul>
+                                <li>
+                                    <a href="<?=$urlqu=Yii::$app->urlManager->createUrl(['/kassa/kassalar'])?>" class="<?=Yii::$app->request->url==$urlqu? 'mm-active':''?>">
+                                        <i class="metismenu-icon"></i>
+                                        Kassalar
+                                    </a>
+                                </li>
+                                <li>
+                                    <a href="<?=$urlqu=Yii::$app->urlManager->createUrl(['/kassa/sotilgan-tovarlar'])?>" class="<?=Yii::$app->request->url==$urlqu? 'mm-active':''?>">
+                                        <i class="metismenu-icon"></i>
+                                        Sotilgan tovarlar
+                                    </a>
+                                </li>
+                            </ul>
+                        </li>
+<!--                        Playlist-->
+                        <li class="<?=strpos(Yii::$app->request->url,'playlist') ? 'mm-active': ''?>">
                             <a href="#">
                                 <i class="metismenu-icon pe-7s-diamond"></i>
-                                Elements
+                                PlayList
                                 <i class="metismenu-state-icon pe-7s-angle-down caret-left"></i>
                             </a>
                             <ul>
                                 <li>
-                                    <a href="elements-buttons-standard.html">
+                                    <a href="<?=$urlqu=Yii::$app->urlManager->createUrl(['/playlist/joriy-playlist'])?>" class="<?=Yii::$app->request->url==$urlqu? 'mm-active':''?>">
                                         <i class="metismenu-icon"></i>
-                                        Buttons
-                                    </a>
-                                </li>
-                                <li>
-                                    <a href="elements-dropdowns.html">
-                                        <i class="metismenu-icon">
-                                        </i>Dropdowns
-                                    </a>
-                                </li>
-                                <li>
-                                    <a href="elements-icons.html">
-                                        <i class="metismenu-icon">
-                                        </i>Icons
-                                    </a>
-                                </li>
-                                <li>
-                                    <a href="elements-badges-labels.html">
-                                        <i class="metismenu-icon">
-                                        </i>Badges
-                                    </a>
-                                </li>
-                                <li>
-                                    <a href="elements-cards.html">
-                                        <i class="metismenu-icon">
-                                        </i>Cards
-                                    </a>
-                                </li>
-                                <li>
-                                    <a href="elements-list-group.html">
-                                        <i class="metismenu-icon">
-                                        </i>List Groups
-                                    </a>
-                                </li>
-                                <li>
-                                    <a href="elements-navigation.html">
-                                        <i class="metismenu-icon">
-                                        </i>Navigation Menus
-                                    </a>
-                                </li>
-                                <li>
-                                    <a href="elements-utilities.html">
-                                        <i class="metismenu-icon">
-                                        </i>Utilities
+                                        Joriy PlayList
                                     </a>
                                 </li>
                             </ul>
                         </li>
-                        <li>
+<!--                        Valyuta kursi-->
+                        <li >
+                            <a href="<?=$urlqu=Yii::$app->urlManager->createUrl(['/valyuta-kursi'])?>" class="<?=Yii::$app->request->url==$urlqu? 'mm-active':''?>">
+                                <i class="metismenu-icon pe-7s-cash"></i>
+                                Valyuta Kursi
+                            </a>
+                        </li>
+
+<!--                        Kontragentlar-->
+                        <li class="app-sidebar__heading">Kontragentlar</li>
+<!--                        Mijozlar-->
+                        <li class="<?=strpos(Yii::$app->request->url,'mijozlar') ? 'mm-active': ''?>">
+                            <a href="#">
+                                <i class="metismenu-icon pe-7s-users"></i>
+                                Mijozlar
+                                <i class="metismenu-state-icon pe-7s-angle-down caret-left"></i>
+                            </a>
+                            <ul>
+                                <li>
+                                    <a href="<?=$urlqu=Yii::$app->urlManager->createUrl(['/mijozlar/royxat'])?>" class="<?=Yii::$app->request->url==$urlqu? 'mm-active':''?>">
+                                        <i class="metismenu-icon"></i>
+                                        Ro’yxat
+                                    </a>
+                                </li>
+                                <li>
+                                    <a href="<?=$urlqu=Yii::$app->urlManager->createUrl(['/mijozlar/qarzdorlik'])?>" class="<?=Yii::$app->request->url==$urlqu? 'mm-active':''?>">
+                                        <i class="metismenu-icon"></i>
+                                        Qarzdorlik
+                                    </a>
+                                </li>
+                                <li>
+                                    <a href="<?=$urlqu=Yii::$app->urlManager->createUrl(['/mijozlar/turlari'])?>" class="<?=Yii::$app->request->url==$urlqu? 'mm-active':''?>">
+                                        <i class="metismenu-icon"></i>
+                                        Turlari
+                                    </a>
+                                </li>
+                            </ul>
+                        </li>
+<!--                        Mol yetkazuvchilar-->
+                        <li class="<?=strpos(Yii::$app->request->url,'mol-yetkazuvchilar') ? 'mm-active': ''?>">
                             <a href="#">
                                 <i class="metismenu-icon pe-7s-car"></i>
-                                Components
+                                Mol yetkazuvchilar
                                 <i class="metismenu-state-icon pe-7s-angle-down caret-left"></i>
                             </a>
                             <ul>
                                 <li>
-                                    <a href="components-tabs.html">
-                                        <i class="metismenu-icon">
-                                        </i>Tabs
+                                    <a href="<?=$urlqu=Yii::$app->urlManager->createUrl(['/mol-yetkazuvchilar/royxat'])?>" class="<?=Yii::$app->request->url==$urlqu? 'mm-active':''?>">
+                                        <i class="metismenu-icon"></i>
+                                        Ro’yxat
                                     </a>
                                 </li>
                                 <li>
-                                    <a href="components-accordions.html">
-                                        <i class="metismenu-icon">
-                                        </i>Accordions
+                                    <a href="<?=$urlqu=Yii::$app->urlManager->createUrl(['/mol-yetkazuvchilar/qarzdorlik'])?>" class="<?=Yii::$app->request->url==$urlqu? 'mm-active':''?>">
+                                        <i class="metismenu-icon"></i>
+                                        Qarzdorlik
                                     </a>
                                 </li>
                                 <li>
-                                    <a href="components-notifications.html">
-                                        <i class="metismenu-icon">
-                                        </i>Notifications
-                                    </a>
-                                </li>
-                                <li>
-                                    <a href="components-modals.html">
-                                        <i class="metismenu-icon">
-                                        </i>Modals
-                                    </a>
-                                </li>
-                                <li>
-                                    <a href="components-progress-bar.html">
-                                        <i class="metismenu-icon">
-                                        </i>Progress Bar
-                                    </a>
-                                </li>
-                                <li>
-                                    <a href="components-tooltips-popovers.html">
-                                        <i class="metismenu-icon">
-                                        </i>Tooltips &amp; Popovers
-                                    </a>
-                                </li>
-                                <li>
-                                    <a href="components-carousel.html">
-                                        <i class="metismenu-icon">
-                                        </i>Carousel
-                                    </a>
-                                </li>
-                                <li>
-                                    <a href="components-calendar.html">
-                                        <i class="metismenu-icon">
-                                        </i>Calendar
-                                    </a>
-                                </li>
-                                <li>
-                                    <a href="components-pagination.html">
-                                        <i class="metismenu-icon">
-                                        </i>Pagination
-                                    </a>
-                                </li>
-                                <li>
-                                    <a href="components-scrollable-elements.html">
-                                        <i class="metismenu-icon">
-                                        </i>Scrollable
-                                    </a>
-                                </li>
-                                <li>
-                                    <a href="components-maps.html">
-                                        <i class="metismenu-icon">
-                                        </i>Maps
+                                    <a href="<?=$urlqu=Yii::$app->urlManager->createUrl(['/mol-yetkazuvchilar/turlari'])?>" class="<?=Yii::$app->request->url==$urlqu? 'mm-active':''?>">
+                                        <i class="metismenu-icon"></i>
+                                        Turlari
                                     </a>
                                 </li>
                             </ul>
                         </li>
-                        <li  >
-                            <a href="tables-regular.html">
-                                <i class="metismenu-icon pe-7s-display2"></i>
-                                Tables
+
+<!--                        Tovarlar-->
+                        <li class="app-sidebar__heading">Tovarlar</li>
+<!--                        Tovarlar ro’yxat-->
+                        <li>
+                            <a href="<?=$urlqu=Yii::$app->urlManager->createUrl(['/tovarlar-royxati'])?>" class="<?= $urlqu==Yii::$app->request->url? 'mm-active': '' ?>">
+                                <i class="metismenu-icon pe-7s-note2"></i>
+                                Tovarlar ro'yxati
                             </a>
                         </li>
-                        <li class="app-sidebar__heading">Widgets</li>
+<!--                        Kategoriyalar-->
                         <li>
-                            <a href="dashboard-boxes.html">
-                                <i class="metismenu-icon pe-7s-display2"></i>
-                                Dashboard Boxes
+                            <a href="<?=$urlqu=Yii::$app->urlManager->createUrl(['/kategoriyalar'])?>" class="<?= $urlqu==Yii::$app->request->url? 'mm-active': '' ?>">
+                                <i class="metismenu-icon pe-7s-albums"></i>
+                                Kategoriyalar
                             </a>
                         </li>
-                        <li class="app-sidebar__heading">Forms</li>
-                        <li>
-                            <a href="forms-controls.html">
-                                <i class="metismenu-icon pe-7s-mouse">
-                                </i>Forms Controls
+
+<!--                        Sozlamalar-->
+                        <li class="app-sidebar__heading">Sozlamalar</li>
+<!--                        Qo'shimcha sozlamalar-->
+                        <li class="<?=strpos(Yii::$app->request->url,'qoshimcha') ? 'mm-active': ''?>">
+                            <a href="#">
+                                <i class="metismenu-icon pe-7s-note"></i>
+                                Qo'shimcha sozlama
+                                <i class="metismenu-state-icon pe-7s-angle-down caret-left"></i>
                             </a>
+                            <ul>
+<!--                                Omborlar-->
+                                <li>
+                                    <a href="<?=$urlqu=Yii::$app->urlManager->createUrl(['/qoshimcha/omborlar'])?>" class="<?= $urlqu==Yii::$app->request->url? 'mm-active': '' ?>">
+                                        <i class="metismenu-icon"></i>
+                                        Omborlar
+                                    </a>
+                                </li>
+<!--                                Banklar-->
+                                <li>
+                                    <a href="<?=$urlqu=Yii::$app->urlManager->createUrl(['/qoshimcha/banklar'])?>" class="<?= $urlqu==Yii::$app->request->url? 'mm-active': '' ?>">
+                                        <i class="metismenu-icon"></i>
+                                        Banklar
+                                    </a>
+                                </li>
+<!--                                Lavozimlar-->
+                                <li>
+                                    <a href="<?=$urlqu=Yii::$app->urlManager->createUrl(['/qoshimcha/lavozimlar'])?>" class="<?= $urlqu==Yii::$app->request->url? 'mm-active': '' ?>">
+                                        <i class="metismenu-icon"></i>
+                                        Lavozimlar
+                                    </a>
+                                </li>
+<!--                                Ishchi-hodimlar-->
+                                <li>
+                                    <a href="<?=$urlqu=Yii::$app->urlManager->createUrl(['/qoshimcha/ishchi-hodimlar'])?>" class="<?= $urlqu==Yii::$app->request->url? 'mm-active': '' ?>">
+                                        <i class="metismenu-icon"></i>
+                                        Ishchi-hodimlar
+                                    </a>
+                                </li>
+<!--                                Hududlar-->
+                                <li class="<?=Yii::$app->controller->id=='qoshimcha' && Yii::$app->controller->action->id=='hududlar' ? 'mm-active': '' ?>">
+                                    <a href="#">
+                                        <i class="metismenu-icon"></i>
+                                        Hududlar
+                                        <i class="metismenu-state-icon pe-7s-angle-down caret-left"></i>
+                                    </a>
+                                    <ul>
+<!--                                        Viloyatlar-->
+                                        <li>
+                                            <a href="<?=$urlqu=Yii::$app->urlManager->createUrl(['/qoshimcha/hududlar','type'=>'viloyatlar'])?>" class="<?= $urlqu==Yii::$app->request->url? 'mm-active': '' ?>">
+                                                <i class="metismenu-icon"></i>
+                                                Viloyatlar
+                                            </a>
+                                        </li>
+<!--                                        Tumanlar-->
+                                        <li>
+                                            <a href="<?=$urlqu=Yii::$app->urlManager->createUrl(['/qoshimcha/hududlar','type'=>'tumanlar'])?>" class="<?= $urlqu==Yii::$app->request->url? 'mm-active': '' ?>">
+                                                <i class="metismenu-icon"></i>
+                                                Tumanlar
+                                            </a>
+                                        </li>
+                                    </ul>
+                                </li>
+                            </ul>
                         </li>
-                        <li>
-                            <a href="forms-layouts.html">
-                                <i class="metismenu-icon pe-7s-eyedropper">
-                                </i>Forms Layouts
+<!--                        Sozlamalar-->
+                        <li class="<?=strpos(Yii::$app->request->url,'sozlamalar') ? 'mm-active': ''?>">
+                            <a href="#">
+                                <i class="metismenu-icon pe-7s-config"></i>
+                                Sozlamalar
+                                <i class="metismenu-state-icon pe-7s-angle-down caret-left"></i>
                             </a>
+                            <ul>
+<!--                                To’lov turlari -->
+                                <li>
+                                    <a href="<?=$urlqu=Yii::$app->urlManager->createUrl(['/sozlamalar/tolov-turlari'])?>" class="<?= $urlqu==Yii::$app->request->url? 'mm-active': '' ?>">
+                                        <i class="metismenu-icon"></i>
+                                        To’lov turlari
+                                    </a>
+                                </li>
+<!--                                Sotuv turlari-->
+                                <li>
+                                    <a href="<?=$urlqu=Yii::$app->urlManager->createUrl(['/sozlamalar/sotuv-turlari'])?>" class="<?= $urlqu==Yii::$app->request->url? 'mm-active': '' ?>">
+                                        <i class="metismenu-icon"></i>
+                                        Sotuv turlari
+                                    </a>
+                                </li>
+<!--                                O’lchov birliklari-->
+                                <li>
+                                    <a href="<?=$urlqu=Yii::$app->urlManager->createUrl(['/sozlamalar/olchov-birliklari'])?>" class="<?= $urlqu==Yii::$app->request->url? 'mm-active': '' ?>">
+                                        <i class="metismenu-icon"></i>
+                                        O’lchov birliklari
+                                    </a>
+                                </li>
+<!--                                Printerlar-->
+                                <li>
+                                    <a  href="<?=$urlqu=Yii::$app->urlManager->createUrl(['/sozlamalar/printerlar'])?>" class="<?= $urlqu==Yii::$app->request->url? 'mm-active': '' ?>">
+                                        <i class="metismenu-icon"></i>
+                                        Printerlar
+                                    </a>
+                                </li>
+<!--                                Shablonlar-->
+                                <li>
+                                    <a  href="<?=$urlqu=Yii::$app->urlManager->createUrl(['/sozlamalar/shablonlar'])?>" class="<?= $urlqu==Yii::$app->request->url? 'mm-active': '' ?>">
+                                        <i class="metismenu-icon"></i>
+                                        Shablonlar
+                                    </a>
+                                </li>
+<!--                                Zavod-fabrikalar-->
+                                <li>
+                                    <a  href="<?=$urlqu=Yii::$app->urlManager->createUrl(['/sozlamalar/zavod-fabrikalar'])?>" class="<?= $urlqu==Yii::$app->request->url? 'mm-active': '' ?>">
+                                        <i class="metismenu-icon"></i>
+                                        Zavod-fabrikalar
+                                    </a>
+                                </li>
+<!--                                Til-->
+                                <li>
+                                    <a  href="<?=$urlqu=Yii::$app->urlManager->createUrl(['/sozlamalar/til'])?>" class="<?= $urlqu==Yii::$app->request->url? 'mm-active': '' ?>">
+                                        <i class="metismenu-icon"></i>
+                                        Til
+                                    </a>
+                                </li>
+<!--                                Korxona haqida-->
+                                <li>
+                                    <a href="<?=$urlqu=Yii::$app->urlManager->createUrl(['/sozlamalar/korxona-haqida'])?>" class="<?= $urlqu==Yii::$app->request->url? 'mm-active': '' ?>">
+                                        <i class="metismenu-icon"></i>
+                                        Korxona haqida
+                                    </a>
+                                </li>
+                            </ul>
                         </li>
+<!--                        Dastur haqida-->
                         <li>
-                            <a href="forms-validation.html">
-                                <i class="metismenu-icon pe-7s-pendrive">
-                                </i>Forms Validation
-                            </a>
-                        </li>
-                        <li class="app-sidebar__heading">Charts</li>
-                        <li>
-                            <a href="charts-chartjs.html">
-                                <i class="metismenu-icon pe-7s-graph2">
-                                </i>ChartJS
-                            </a>
-                        </li>
-                        <li class="app-sidebar__heading">PRO Version</li>
-                        <li>
-                            <a href="https://dashboardpack.com/theme-details/architectui-dashboard-html-pro/" target="_blank">
-                                <i class="metismenu-icon pe-7s-graph2">
-                                </i>
-                                Upgrade to PRO
+                            <a  href="<?=$urlqu=Yii::$app->urlManager->createUrl(['/dastur-haqida'])?>" class="<?= $urlqu==Yii::$app->request->url? 'mm-active': '' ?>">
+                                <i class="metismenu-icon pe-7s-info"></i>
+                                Dastur haqida
                             </a>
                         </li>
                     </ul>

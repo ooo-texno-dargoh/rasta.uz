@@ -22,9 +22,12 @@ class AppAsset extends AssetBundle
     public $css = [
           'css/site.css',
         'theme/main.css',
+        'theme/assets/fontawesome/css/all.css'
     ];
     public $js = [
-        'theme/assets/scripts/main.js'
+        'theme/assets/scripts/main.js',
+        'theme/assets/fontawesome/js/all.js'
+
         ];
     public $depends = [
         'yii\web\YiiAsset',
