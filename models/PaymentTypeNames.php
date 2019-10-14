@@ -13,8 +13,8 @@ use Yii;
  * @property int $lang_id
  * @property int $status
  *
+ * @property PaymentTypes $paymentType
  * @property Lang $lang
- * @property OrderTypes $paymentType
  */
 class PaymentTypeNames extends \yii\db\ActiveRecord
 {
@@ -35,8 +35,8 @@ class PaymentTypeNames extends \yii\db\ActiveRecord
             [['name', 'payment_type_id'], 'required'],
             [['payment_type_id', 'lang_id', 'status'], 'integer'],
             [['name'], 'string', 'max' => 255],
+            [['payment_type_id'], 'exist', 'skipOnError' => true, 'targetClass' => PaymentTypes::className(), 'targetAttribute' => ['payment_type_id' => 'id']],
             [['lang_id'], 'exist', 'skipOnError' => true, 'targetClass' => Lang::className(), 'targetAttribute' => ['lang_id' => 'id']],
-            [['payment_type_id'], 'exist', 'skipOnError' => true, 'targetClass' => OrderTypes::className(), 'targetAttribute' => ['payment_type_id' => 'id']],
         ];
     }
 
@@ -57,16 +57,16 @@ class PaymentTypeNames extends \yii\db\ActiveRecord
     /**
      * @return \yii\db\ActiveQuery
      */
-    public function getLang()
+    public function getPaymentType()
     {
-        return $this->hasOne(Lang::className(), ['id' => 'lang_id']);
+        return $this->hasOne(PaymentTypes::className(), ['id' => 'payment_type_id']);
     }
 
     /**
      * @return \yii\db\ActiveQuery
      */
-    public function getPaymentType()
+    public function getLang()
     {
-        return $this->hasOne(OrderTypes::className(), ['id' => 'payment_type_id']);
+        return $this->hasOne(Lang::className(), ['id' => 'lang_id']);
     }
 }

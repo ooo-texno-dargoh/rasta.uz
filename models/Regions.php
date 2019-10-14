@@ -13,6 +13,7 @@ use Yii;
  *
  * @property Citytowns[] $citytowns
  * @property Factories[] $factories
+ * @property RegionNames[] $regionNames
  */
 class Regions extends \yii\db\ActiveRecord
 {
@@ -62,5 +63,13 @@ class Regions extends \yii\db\ActiveRecord
     public function getFactories()
     {
         return $this->hasMany(Factories::className(), ['region_id' => 'id']);
+    }
+
+    /**
+     * @return \yii\db\ActiveQuery
+     */
+    public function getRegionNames()
+    {
+        return $this->hasMany(RegionNames::className(), ['region_id' => 'id']);
     }
 }

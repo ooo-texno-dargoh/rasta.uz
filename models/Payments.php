@@ -14,9 +14,8 @@ use Yii;
  * @property string $datetime
  * @property int $status
  *
+ * @property PaymentTypes $paymentType
  * @property Orders $order
- * @property Payments $paymentType
- * @property Payments[] $payments
  */
 class Payments extends \yii\db\ActiveRecord
 {
@@ -38,8 +37,8 @@ class Payments extends \yii\db\ActiveRecord
             [['order_id', 'payment_type_id', 'status'], 'integer'],
             [['sum'], 'number'],
             [['datetime'], 'safe'],
+            [['payment_type_id'], 'exist', 'skipOnError' => true, 'targetClass' => PaymentTypes::className(), 'targetAttribute' => ['payment_type_id' => 'id']],
             [['order_id'], 'exist', 'skipOnError' => true, 'targetClass' => Orders::className(), 'targetAttribute' => ['order_id' => 'id']],
-            [['payment_type_id'], 'exist', 'skipOnError' => true, 'targetClass' => Payments::className(), 'targetAttribute' => ['payment_type_id' => 'id']],
         ];
     }
 
@@ -61,24 +60,16 @@ class Payments extends \yii\db\ActiveRecord
     /**
      * @return \yii\db\ActiveQuery
      */
+    public function getPaymentType()
+    {
+        return $this->hasOne(PaymentTypes::className(), ['id' => 'payment_type_id']);
+    }
+
+    /**
+     * @return \yii\db\ActiveQuery
+     */
     public function getOrder()
     {
         return $this->hasOne(Orders::className(), ['id' => 'order_id']);
-    }
-
-    /**
-     * @return \yii\db\ActiveQuery
-     */
-    public function getPaymentType()
-    {
-        return $this->hasOne(Payments::className(), ['id' => 'payment_type_id']);
-    }
-
-    /**
-     * @return \yii\db\ActiveQuery
-     */
-    public function getPayments()
-    {
-        return $this->hasMany(Payments::className(), ['payment_type_id' => 'id']);
     }
 }

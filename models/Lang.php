@@ -16,6 +16,7 @@ use Yii;
  *
  * @property BrendNames[] $brendNames
  * @property CategoryNames[] $categoryNames
+ * @property CitytownNames[] $citytownNames
  * @property ClientTypeNames[] $clientTypeNames
  * @property FactoryNames[] $factoryNames
  * @property GoodNames[] $goodNames
@@ -81,6 +82,14 @@ class Lang extends \yii\db\ActiveRecord
     public function getCategoryNames()
     {
         return $this->hasMany(CategoryNames::className(), ['lang_id' => 'id']);
+    }
+
+    /**
+     * @return \yii\db\ActiveQuery
+     */
+    public function getCitytownNames()
+    {
+        return $this->hasMany(CitytownNames::className(), ['lang_id' => 'id']);
     }
 
     /**

@@ -13,7 +13,6 @@ use Yii;
  *
  * @property OrderTypeNames[] $orderTypeNames
  * @property Orders[] $orders
- * @property PaymentTypeNames[] $paymentTypeNames
  */
 class OrderTypes extends \yii\db\ActiveRecord
 {
@@ -63,13 +62,5 @@ class OrderTypes extends \yii\db\ActiveRecord
     public function getOrders()
     {
         return $this->hasMany(Orders::className(), ['order_type_id' => 'id']);
-    }
-
-    /**
-     * @return \yii\db\ActiveQuery
-     */
-    public function getPaymentTypeNames()
-    {
-        return $this->hasMany(PaymentTypeNames::className(), ['payment_type_id' => 'id']);
     }
 }

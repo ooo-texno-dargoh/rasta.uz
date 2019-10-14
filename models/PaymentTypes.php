@@ -9,6 +9,9 @@ use Yii;
  *
  * @property int $id
  * @property int $status
+ *
+ * @property PaymentTypeNames[] $paymentTypeNames
+ * @property Payments[] $payments
  */
 class PaymentTypes extends \yii\db\ActiveRecord
 {
@@ -39,5 +42,21 @@ class PaymentTypes extends \yii\db\ActiveRecord
             'id' => 'ID',
             'status' => 'Status',
         ];
+    }
+
+    /**
+     * @return \yii\db\ActiveQuery
+     */
+    public function getPaymentTypeNames()
+    {
+        return $this->hasMany(PaymentTypeNames::className(), ['payment_type_id' => 'id']);
+    }
+
+    /**
+     * @return \yii\db\ActiveQuery
+     */
+    public function getPayments()
+    {
+        return $this->hasMany(Payments::className(), ['payment_type_id' => 'id']);
     }
 }

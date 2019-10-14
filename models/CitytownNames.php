@@ -9,10 +9,12 @@ use Yii;
  *
  * @property int $id
  * @property int $name
+ * @property int $citytown_id
  * @property int $lang_id
  * @property int $status
  *
- * @property Citytowns $lang
+ * @property Citytowns $citytown
+ * @property Lang $lang
  */
 class CitytownNames extends \yii\db\ActiveRecord
 {
@@ -30,9 +32,10 @@ class CitytownNames extends \yii\db\ActiveRecord
     public function rules()
     {
         return [
-            [['name'], 'required'],
-            [['name', 'lang_id', 'status'], 'integer'],
-            [['lang_id'], 'exist', 'skipOnError' => true, 'targetClass' => Citytowns::className(), 'targetAttribute' => ['lang_id' => 'id']],
+            [['name', 'citytown_id'], 'required'],
+            [['name', 'citytown_id', 'lang_id', 'status'], 'integer'],
+            [['citytown_id'], 'exist', 'skipOnError' => true, 'targetClass' => Citytowns::className(), 'targetAttribute' => ['citytown_id' => 'id']],
+            [['lang_id'], 'exist', 'skipOnError' => true, 'targetClass' => Lang::className(), 'targetAttribute' => ['lang_id' => 'id']],
         ];
     }
 
@@ -44,6 +47,7 @@ class CitytownNames extends \yii\db\ActiveRecord
         return [
             'id' => 'ID',
             'name' => 'Name',
+            'citytown_id' => 'Citytown ID',
             'lang_id' => 'Lang ID',
             'status' => 'Status',
         ];
@@ -52,8 +56,16 @@ class CitytownNames extends \yii\db\ActiveRecord
     /**
      * @return \yii\db\ActiveQuery
      */
+    public function getCitytown()
+    {
+        return $this->hasOne(Citytowns::className(), ['id' => 'citytown_id']);
+    }
+
+    /**
+     * @return \yii\db\ActiveQuery
+     */
     public function getLang()
     {
-        return $this->hasOne(Citytowns::className(), ['id' => 'lang_id']);
+        return $this->hasOne(Lang::className(), ['id' => 'lang_id']);
     }
 }

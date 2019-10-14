@@ -2,109 +2,115 @@
 
 namespace app\models;
 
-use yii\db\ActiveRecord;
+use Yii;
 
-class User extends ActiveRecord implements \yii\web\IdentityInterface
+/**
+ * This is the model class for table "user".
+ *
+ * @property int $id
+ * @property string $username
+ * @property string $password
+ * @property string $fio
+ * @property int $role
+ * @property string $phone
+ * @property string $phone1
+ * @property int $lang_id
+ * @property string $photo
+ * @property string $telegram
+ * @property int $is_active
+ * @property int $online
+ * @property int $status
+ *
+ * @property CurrencyRate[] $currencyRates
+ * @property Orders[] $orders
+ * @property Roles $role0
+ * @property Lang $lang
+ * @property Wherehouses[] $wherehouses
+ */
+class User extends \yii\db\ActiveRecord
 {
+    /**
+     * {@inheritdoc}
+     */
     public static function tableName()
     {
         return 'user';
     }
-    public $id;
-    public $username;
-    public $password;
-    public $authKey;
-    public $accessToken;
-
-    private static $users = [
-        '100' => [
-            'id' => '100',
-            'username' => 'admin',
-            'password' => 'admin',
-            'authKey' => 'test100key',
-            'accessToken' => '100-token',
-        ],
-        '101' => [
-            'id' => '101',
-            'username' => 'demo',
-            'password' => 'demo',
-            'authKey' => 'test101key',
-            'accessToken' => '101-token',
-        ],
-    ];
-
 
     /**
      * {@inheritdoc}
      */
-    public static function findIdentity($id)
+    public function rules()
     {
-        return isset(self::$users[$id]) ? new static(self::$users[$id]) : null;
+        return [
+            [['username', 'password', 'fio', 'phone', 'phone1', 'photo', 'telegram', 'is_active', 'online'], 'required'],
+            [['role', 'lang_id', 'is_active', 'online', 'status'], 'integer'],
+            [['username', 'password', 'fio', 'photo', 'telegram'], 'string', 'max' => 250],
+            [['phone', 'phone1'], 'string', 'max' => 100],
+            [['role'], 'exist', 'skipOnError' => true, 'targetClass' => Roles::className(), 'targetAttribute' => ['role' => 'role']],
+            [['lang_id'], 'exist', 'skipOnError' => true, 'targetClass' => Lang::className(), 'targetAttribute' => ['lang_id' => 'id']],
+        ];
     }
 
     /**
      * {@inheritdoc}
      */
-    public static function findIdentityByAccessToken($token, $type = null)
+    public function attributeLabels()
     {
-        foreach (self::$users as $user) {
-            if ($user['accessToken'] === $token) {
-                return new static($user);
-            }
-        }
-
-        return null;
+        return [
+            'id' => 'ID',
+            'username' => 'Username',
+            'password' => 'Password',
+            'fio' => 'Fio',
+            'role' => 'Role',
+            'phone' => 'Phone',
+            'phone1' => 'Phone1',
+            'lang_id' => 'Lang ID',
+            'photo' => 'Photo',
+            'telegram' => 'Telegram',
+            'is_active' => 'Is Active',
+            'online' => 'Online',
+            'status' => 'Status',
+        ];
     }
 
     /**
-     * Finds user by username
-     *
-     * @param string $username
-     * @return static|null
+     * @return \yii\db\ActiveQuery
      */
-    public static function findByUsername($username)
+    public function getCurrencyRates()
     {
-        foreach (self::$users as $user) {
-            if (strcasecmp($user['username'], $username) === 0) {
-                return new static($user);
-            }
-        }
-
-        return null;
+        return $this->hasMany(CurrencyRate::className(), ['user_id' => 'id']);
     }
 
     /**
-     * {@inheritdoc}
+     * @return \yii\db\ActiveQuery
      */
-    public function getId()
+    public function getOrders()
     {
-        return $this->id;
+        return $this->hasMany(Orders::className(), ['user_id' => 'id']);
     }
 
     /**
-     * {@inheritdoc}
+     * @return \yii\db\ActiveQuery
      */
-    public function getAuthKey()
+    public function getRole0()
     {
-        return $this->authKey;
+        return $this->hasOne(Roles::className(), ['role' => 'role']);
     }
 
     /**
-     * {@inheritdoc}
+     * @return \yii\db\ActiveQuery
      */
-    public function validateAuthKey($authKey)
+    public function getLang()
     {
-        return $this->authKey === $authKey;
+        return $this->hasOne(Lang::className(), ['id' => 'lang_id']);
     }
 
     /**
-     * Validates password
-     *
-     * @param string $password password to validate
-     * @return bool if password provided is valid for current user
+     * @return \yii\db\ActiveQuery
      */
-    public function validatePassword($password)
+    public function getWherehouses()
     {
-        return $this->password === $password;
+        return $this->hasMany(Wherehouses::className(), ['user_id' => 'id']);
     }
 }

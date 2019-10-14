@@ -57,7 +57,7 @@ class Citytowns extends \yii\db\ActiveRecord
      */
     public function getCitytownNames()
     {
-        return $this->hasMany(CitytownNames::className(), ['lang_id' => 'id']);
+        return $this->hasMany(CitytownNames::className(), ['citytown_id' => 'id']);
     }
 
     /**
